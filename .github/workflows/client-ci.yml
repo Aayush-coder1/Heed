@@ -1,4 +1,4 @@
-name: Frontend Client CI
+name: Frontend Client CI Pipeline v2
 
 on:
   push:
