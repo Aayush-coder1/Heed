@@ -1,0 +1,27 @@
+name: Global Code Audit & Security
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  audit-and-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Audit Client Dependencies
+        run: cd client && npm audit --audit-level=high || true
+
+      - name: Audit Server Dependencies
+        run: cd server && npm audit --audit-level=high || true
+
+      - name: Check Prettier Formatting on Server
+        run: cd server && npx prettier --check . || true
